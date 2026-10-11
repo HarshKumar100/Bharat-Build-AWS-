@@ -106,7 +106,13 @@ app.get('/api/stats', async (req, res) => {
 app.post('/api/classify', upload.any(), async (req, res) => {
   try {
     const body = req.body || {};
-    const { textDescription, manualCategory, source = 'image', base64Data, filename } = body;
+    const rawSource = body.source || 'image';
+    // Normalize source to valid enum values — frontend may send 'upload' from activeMode state
+    const validSources = ['image', 'camera', 'text', 'upload', 'preset'];
+    const source = validSources.includes(rawSource) ? rawSource : 'image';
+    const { textDescription, manualCategory, base64Data, filename } = body;
+    console.log(`📥 /classify called | source=${source} | hasImage=${!!base64Data} | text=${textDescription || 'none'}`);
+
     
     // Step 0: Real AI Model Inference via PyTorch EfficientNetB0 Microservice
     let aiPrediction = null;
@@ -122,12 +128,19 @@ app.post('/api/classify', upload.any(), async (req, res) => {
           const aiJson = await aiRes.json();
           if (aiJson.success && aiJson.data) {
             aiPrediction = aiJson.data;
-            console.log('⚡ Real PyTorch EfficientNetB0 Inference:', aiPrediction);
+            console.log('⚡ EfficientNetB0 Prediction:', aiPrediction.prediction, `(${aiPrediction.confidence?.toFixed(1)}%)`);
+          } else {
+            console.log('⚠️ AI service returned success=false:', JSON.stringify(aiJson));
           }
+        } else {
+          const errBody = await aiRes.text();
+          console.log(`⚠️ AI service HTTP ${aiRes.status}:`, errBody.substring(0, 200));
         }
       } catch (aiErr) {
-        console.log('AI microservice fallback to heuristics:', aiErr.message);
+        console.log('⚠️ AI service unreachable, using heuristics:', aiErr.message);
       }
+    } else {
+      console.log('📝 No image provided — using text heuristics only');
     }
 
     // Step 1: Text and Filename Heuristics Engine
