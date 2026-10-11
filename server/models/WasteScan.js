@@ -5,7 +5,7 @@ const wasteScanSchema = new mongoose.Schema({
   imageUrl: { type: String, default: '' },
   // AWS S3 Object Key: Reference for AWS cloud storage
   s3Key: { type: String, default: null },
-  source: { type: String, enum: ['image', 'camera', 'text'], default: 'image' },
+  source: { type: String, enum: ['image', 'camera', 'text', 'upload', 'preset'], default: 'image' },
   inputText: { type: String, default: '' },
   // 2-Stage Result Breakdown
   stage1Category: { 
