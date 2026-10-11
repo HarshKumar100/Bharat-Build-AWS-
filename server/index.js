@@ -103,9 +103,10 @@ app.get('/api/stats', async (req, res) => {
 // Model benchmarked: EfficientNetB0 on Kaggle Waste Classification Data
 // 25,077 images (Organic 'O' vs Recyclable 'R')
 // ==========================================
-app.post('/api/classify', upload.single('wasteImage'), async (req, res) => {
+app.post('/api/classify', upload.any(), async (req, res) => {
   try {
-    const { textDescription, manualCategory, source = 'image', base64Data, filename } = req.body;
+    const body = req.body || {};
+    const { textDescription, manualCategory, source = 'image', base64Data, filename } = body;
     
     // Step 0: Real AI Model Inference via PyTorch EfficientNetB0 Microservice
     let aiPrediction = null;
