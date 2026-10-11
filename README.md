@@ -1,4 +1,4 @@
-# 🌿 KabaadSeJugaad - AI Waste to Value Platform
+# 🗑️ BinWise - AI Waste to Value Platform
 ### 🏆 WeMakeDevs Bharat Builds Tour - Environmental Hacks | Track 03: Waste and Energy
 
 [![Built on AWS](https://img.shields.io/badge/Built%20on-AWS%20Cloud-FF9900?logo=amazon-aws&logoColor=white)](https://aws.amazon.com)
