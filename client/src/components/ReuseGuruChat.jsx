@@ -50,93 +50,191 @@ export default function ReuseGuruChat() {
   ];
 
   // =========================================================================
-  // getCreativeIdeas(wasteType)
-  // ARCHITECTURE FOR AWS CLOUD & BEDROCK / STRANDS AGENTS SDK
-  // TODO: Replace with AWS Bedrock / OpenAI API call when REACT_APP_LLM_API_KEY is provided.
-  // Example AWS Bedrock invocation:
-  // const bedrock = new BedrockRuntimeClient({ region: 'ap-south-1' });
-  // const payload = { prompt: `\n\nHuman: ${wasteType}\n\nAssistant:`, max_tokens_to_sample: 300 };
+  // Enhanced Circular AI Engine for Reuse & Upcycling
   // =========================================================================
   const getCreativeIdeas = (wasteType) => {
-    const q = (wasteType || '').toLowerCase();
+    const qRaw = (wasteType || '').toLowerCase().trim();
+    const q = qRaw.replace(/[-_]/g, '');
+
+    // 1. Greetings & Intro
+    if (/^(hi|hello|hey|namaste|greetings|pranam|kya haal|who are you|help|intro)/i.test(q)) {
+      return `👋 **Namaste! I am Reuse AI — your Delhi NCR Waste Upcycling Guide.**\n\n` +
+        `I help transform household and commercial waste into high-utility zero-cost items while preventing Ghazipur & Bhalswa landfill dumping.\n\n` +
+        `Ask me about:\n` +
+        `• 🧴 **Plastic Bottles & Bags** (Irrigation, vertical gardens, eco-bricks)\n` +
+        `• 📦 **Cardboard Boxes** (Desk organizers, soil mulch, drawer dividers)\n` +
+        `• 🌱 **Kitchen Peels & Food Waste** (Odourless balcony composting, bio-enzymes)\n` +
+        `• 👖 **Denim & Fabric** (Heavy-duty tote bags, mats, trivets)\n` +
+        `• 🍾 **Glass Bottles & Jars** (Fairy light lanterns, plant propagation)\n` +
+        `• 🔩 **Tin Cans & Scrap Metal** (Desk caddies, planters, lanterns)\n` +
+        `• 💻 **E-Waste & Cables** (Webcam conversion, cord organizers)`;
+    }
+
+    // 2. Delhi Landfill Impact
+    if (q.includes('ghazipur') || q.includes('bhalswa') || q.includes('okhla') || q.includes('landfill') || q.includes('kura') || q.includes('fire')) {
+      return `🚨 **Delhi NCR Landfill Crisis (Ghazipur & Bhalswa):**\n\n` +
+        `• Over **11,000 tonnes of waste** is dumped in Delhi every day, with 60% arriving unsegregated.\n` +
+        `• Trapped organic matter produces hazardous **Methane gas**, fueling spontaneous fires.\n` +
+        `• By upcycling and segregating at home, each household diverts over **300kg of waste annually**!`;
+    }
+
+    // 3. Segregation Rules
+    if (q.includes('segregat') || q.includes('bin') || q.includes('dry waste') || q.includes('wet waste') || q.includes('alag')) {
+      return `🗑️ **Source Segregation Guidelines:**\n\n` +
+        `🟢 **Green Bin (Wet):** Vegetable & fruit peels, leftover food, tea leaves, garden clippings.\n` +
+        `🔵 **Blue Bin (Dry):** Clean plastic bottles, paper, cardboard, metal cans, glass jars.\n` +
+        `🔴 **Red/Black Bin (Hazardous/E-Waste):** Batteries, electronics, sanitary waste, medicines.`;
+    }
     
-    if (q.includes('cardboard') || q.includes('box')) {
+    // 4. Cardboard & Packaging
+    if (q.includes('cardboard') || q.includes('box') || q.includes('carton') || q.includes('gatta')) {
       return `📦 **Top 5 Creative DIY Ideas for Cardboard Boxes:**\n\n` +
-        `1. **Modular Desk Organizer:** Cut interlocking slots into cardboard strips to organize messy cables, pens, scissors, and flash drives.\n` +
-        `2. **Garden Weed Shield:** Place flat cardboard beneath potting soil mulch. It stops weed growth and biodegrades into rich carbon humus within 6 weeks.\n` +
+        `1. **Modular Desk Organizer:** Cut interlocking slots into cardboard strips to organize cables, pens, remotes, and stationery.\n` +
+        `2. **Garden Weed Shield & Mulch:** Lay flat cardboard under potting soil mulch — suppresses weeds and biodegrades into rich organic humus within 6 weeks!\n` +
         `3. **Cat Scratching Lounge:** Slice cardboard into 2-inch ribbons, roll tightly into a concentric circle, and seal with flour-water paste.\n` +
-        `4. **Drawer Partition Dividers:** Tailor-fit custom compartments for wardrobe socks, undergarments, and kitchen spice packets.\n` +
-        `5. **Acoustic Sound Baffles:** Fold into geometric triangles to build sound-absorbing wall art for study or home recording spaces!`;
+        `4. **Drawer Partition Dividers:** Tailor-fit custom compartments for wardrobe socks, undergarments, and spice packets.\n` +
+        `5. **Acoustic Sound Baffles:** Fold into geometric 3D triangles for decorative sound-dampening wall panels!`;
     }
 
-    if (q.includes('jeans') || q.includes('cloth') || q.includes('fabric')) {
+    // 5. Textiles & Denim
+    if (q.includes('jeans') || q.includes('cloth') || q.includes('fabric') || q.includes('denim') || q.includes('kapda') || q.includes('shirt')) {
       return `👖 **Top 5 DIY Ideas for Old Denim & Textiles:**\n\n` +
-        `1. **Heavy-Duty Grocery Tote:** Denim fabric carries 15kg without tearing, easily replacing hundreds of single-use plastic bags.\n` +
-        `2. **Insulated Kettle Trivet:** Braid cut strips into a tight circular mat to protect dining tables from hot pots and pans.\n` +
-        `3. **Pocket Wall Organizer:** Cut back pockets and stitch onto canvas for phone and remote storage.\n` +
-        `4. **Winter Door Draft Stopper:** Fill stitched pant legs with dry rice or sawdust to block cold drafts.\n` +
-        `5. **Potted Plant Cozies:** Wrap cylindrical jeans sections around terracotta pots for stylish indoor greenery!`;
+        `1. **Heavy-Duty Grocery Tote:** Denim fabric easily carries 15kg without tearing, replacing hundreds of single-use polybags.\n` +
+        `2. **Insulated Kettle Trivet:** Braid cut denim strips into a tight circular mat to protect dining tables from hot pots.\n` +
+        `3. **Pocket Wall Organizer:** Cut jean back pockets and stitch onto canvas for mobile, key, and remote storage.\n` +
+        `4. **Winter Door Draft Stopper:** Fill stitched pant legs with dry rice or sawdust to block cold room drafts.\n` +
+        `5. **Braided Floor Mat:** Braid old cotton t-shirt strips into colourful, washable bedside rugs!`;
     }
 
-    if (q.includes('peel') || q.includes('kela') || q.includes('vegetable') || q.includes('compost')) {
-      return `🌱 **Top 5 Kitchen Organic Waste Hacks (Zero-Odour Home Composting):**\n\n` +
+    // 6. Kitchen Peels & Composting
+    if (q.includes('peel') || q.includes('kela') || q.includes('vegetable') || q.includes('compost') || q.includes('khad') || q.includes('organic') || q.includes('food') || q.includes('tea') || q.includes('chai')) {
+      return `🌱 **Top 5 Kitchen Organic Waste Hacks (Zero-Odour Composting):**\n\n` +
         `1. **Banana Peel Potassium Tea:** Soak 3 banana peels in 1L water for 48 hours. Dilute 1:5 and water your flowering plants for vibrant blooms!\n` +
         `2. **Eggshell Calcium Booster:** Grind sun-dried eggshells into fine powder and dust onto plant roots to eliminate blossom rot.\n` +
-        `3. **Bio-Enzyme Natural Cleaner:** 1 part sugar + 3 parts citrus rinds + 10 parts water in an airtight bottle. In 90 days you have a 100% natural disinfectant.\n` +
-        `4. **Balcony Composting:** Alternate 1 layer green waste with 1 layer dry coco-peat. Stir weekly for rich compost in 21 days!\n` +
-        `5. **Coffee Grounds Pest Barrier:** Sprinkle spent coffee grounds around succulents to deter ants and slugs naturally!`;
+        `3. **Citrus Bio-Enzyme Cleaner:** 1 part jaggery + 3 parts citrus rinds + 10 parts water in an airtight bottle. In 90 days you have a 100% organic floor cleaner.\n` +
+        `4. **Balcony Pot Composting:** Alternate 1 layer green waste with 1 layer dry coco-peat/leaves. Stir weekly for rich compost in 21 days!\n` +
+        `5. **Spent Chai Leaves Aeration:** Rinse spent tea leaves, sun-dry, and blend into potted rose soil for enhanced nitrogen aeration!`;
     }
 
-    // Default: Plastic Bottles
-    return `♻️ **Top 5 Creative DIY Ideas for Plastic Bottles:**\n\n` +
-      `1. **Self-Watering Drip Irrigator:** Puncture 2 small holes near the bottle base, bury next to plant roots, and enjoy automated slow watering!\n` +
-      `2. **Vertical Herb Garden:** Cut a horizontal slit, poke drainage holes at the bottom, and hang along a window to grow fresh mint and coriander.\n` +
-      `3. **Zero-Spill Kitchen Funnel:** Cut the top third diagonally to transfer grains, lentils, or oils without mess.\n` +
-      `4. **Garden Bird Feeder:** Insert two wooden spoons horizontally through the bottle body; seeds fill the spoons for garden birds.\n` +
-      `5. **Stationery & Cable Organizer:** Cut bottom sections at 3 staggered heights and glue onto a cardboard base for a modern desk caddy!`;
+    // 7. Glass Bottles & Jars
+    if (q.includes('glass') || q.includes('kaanch') || q.includes('kach') || q.includes('jar')) {
+      return `🍾 **Top 5 Creative DIY Ideas for Glass Bottles & Jars:**\n\n` +
+        `1. **Fairy Light Bedside Lamp:** Insert warm battery-operated fairy string lights into empty cleaned sauce jars.\n` +
+        `2. **Window Plant Propagation:** Fill glass bottles with water to propagate Money Plants (Pothos) and Monsteras on window sills.\n` +
+        `3. **Airtight Spice Jars:** Soak jars in warm soapy water to peel labels cleanly; reuse for spices, lentils, and pickles.\n` +
+        `4. **DIY Self-Watering Terrarium:** Layer pebbles, charcoal, soil, and moss inside a large glass jar for a miniature indoor rainforest.\n` +
+        `5. **Scented Soy Wax Candles:** Pour melted wax with essential oils and a cotton wick into small glass jars for handmade gifts!`;
+    }
+
+    // 8. Tin Cans & Metal
+    if (q.includes('metal') || q.includes('can') || q.includes('tin') || q.includes('loha') || q.includes('iron') || q.includes('aluminium')) {
+      return `🔩 **Top 5 Upcycling Ideas for Metal Cans & Scrap:**\n\n` +
+        `1. **Rustic Desktop Pencil & Tool Caddy:** Sand can rim smooth, wrap outside with jute string or twine for an aesthetic desk organizer.\n` +
+        `2. **Punched-Tin Constellation Lantern:** Fill tin can with water and freeze, then hammer constellation hole patterns with a nail for ambient lanterns.\n` +
+        `3. **Magnetic Spice Containers:** Glue neodymium magnets to can bases and mount directly onto the refrigerator door.\n` +
+        `4. **Balcony Herb Planters:** Punch 3 drainage holes at base, paint in bright colors, and plant fresh mint or coriander.\n` +
+        `5. **Melodic Wind Chimes:** String varying metal can lids and tubes on nylon thread for relaxing balcony sounds!`;
+    }
+
+    // 9. E-Waste & Cables
+    if (q.includes('ewaste') || q.includes('phone') || q.includes('laptop') || q.includes('charger') || q.includes('cable') || q.includes('cord')) {
+      return `💻 **Top Upcycling & Safe Handling for E-Waste:**\n\n` +
+        `1. **Old Smartphone as CCTV Webcam:** Install security camera apps to turn old phones into WiFi home monitors.\n` +
+        `2. **Digital Desk Clock & Weather Widget:** Mount old tablets on walls or desks for real-time dashboards.\n` +
+        `3. **Charging Cable Reinforcement:** Braid embroidery thread around frayed cord joints to double cable lifespan.\n` +
+        `4. **Certified Disposal:** Hand over lithium batteries and broken PCBs strictly to authorized E-waste collection centers in Mayapuri to prevent heavy metal leaching!`;
+    }
+
+    // 10. Plastic Bottles
+    if (q.includes('plastic') || q.includes('bottle') || q.includes('pet')) {
+      return `♻️ **Top 5 Creative DIY Ideas for Plastic Bottles:**\n\n` +
+        `1. **Self-Watering Drip Irrigator:** Puncture 2 small holes near the bottle base, bury next to plant roots, and enjoy automated 5-day watering!\n` +
+        `2. **Vertical Herb Garden:** Cut a horizontal slit, poke drainage holes at the bottom, and hang along window grills to grow fresh mint.\n` +
+        `3. **Zero-Spill Kitchen Funnel:** Cut the top third diagonally to transfer grains, lentils, or oils without mess.\n` +
+        `4. **Garden Bird Feeder:** Insert two wooden spoons horizontally through the bottle body; seeds fill the spoons for balcony birds.\n` +
+        `5. **Stationery & Cable Organizer:** Cut bottom sections at 3 staggered heights and glue onto a cardboard base for a modern desk caddy!`;
+    }
+
+    // Dynamic Fallback
+    const item = q.replace(/^(what can i do with|how to reuse|give me ideas for|kya karein)\s*/i, '').trim();
+    return `♻️ **Circular Upcycling Solutions for: "${item || 'Your Waste Item'}"**\n\n` +
+      `1. **Inspection & Cleaning:** Wash off organic residues and let dry completely.\n` +
+      `2. **Home Repurposing:** Check if the structural shape can serve as a storage divider, plant container, or protective craft material.\n` +
+      `3. **Material Upcycling:** If not usable as-is, aggregate and pass on to local recyclers or community makers.\n` +
+      `4. **Zero Landfill Target:** Every segregated item directly reduces the burden on Delhi's Ghazipur & Bhalswa dumping yards!`;
   };
 
   const getEstimatedValueMock = (query) => {
-    const q = (query || '').toLowerCase();
+    const qRaw = (query || '').toLowerCase().trim();
+    const q = qRaw.replace(/[-_]/g, '');
+
+    if (q.includes('copper') || q.includes('tamba') || q.includes('taamba') || q.includes('brass') || q.includes('pital')) {
+      return `🪙 **Premium Non-Ferrous Scrap Rates (Delhi NCR):**\n\n` +
+        `• **Copper Scrap (Electrical wire & Utensils):** ₹620 - ₹660 / kg\n` +
+        `• **Brass (Pital) Scrap:** ₹380 - ₹410 / kg\n` +
+        `• **Gunmetal:** ₹430 - ₹470 / kg\n\n` +
+        `💡 *Pro-Tip:* Stripping plastic insulation from copper cables increases your payout by up to ₹40/kg!`;
+    }
     
-    if (q.includes('iron') || q.includes('loha') || q.includes('metal')) {
+    if (q.includes('iron') || q.includes('loha') || q.includes('metal') || q.includes('steel') || q.includes('aluminium') || q.includes('can')) {
       return `⚙️ **Metal Scrap Market Rates (CPCB Verified):**\n\n` +
-        `• **Scrap Iron:** ₹32 - ₹36 / kg\n` +
-        `• **Aluminium Beverage Cans:** ₹105 - ₹120 / kg\n` +
-        `• **Brass Scrap:** ₹380 - ₹410 / kg\n` +
-        `• **Copper Scrap:** ₹620 - ₹660 / kg\n\n` +
-        `💡 *Pro-Tip:* Separate aluminium from ferrous metals to get better non-ferrous rates at your local recycler!`;
+        `• **Heavy Scrap Iron (Sariya / Angal):** ₹34 - ₹38 / kg\n` +
+        `• **Light Scrap Iron:** ₹28 - ₹32 / kg\n` +
+        `• **Aluminium Beverage Cans:** ₹105 - ₹125 / kg\n` +
+        `• **Stainless Steel (SS 304 Utensils):** ₹110 - ₹130 / kg\n` +
+        `• **Tin Food Cans:** ₹18 - ₹22 / kg\n\n` +
+        `💡 *Pro-Tip:* Separate aluminium cans from ferrous metals using a magnet to get top non-ferrous prices!`;
     }
 
-    if (q.includes('newspaper') || q.includes('akhbar') || q.includes('paper') || q.includes('raddi')) {
-      return `📰 **Scrap Paper Rates Today:**\n\n` +
+    if (q.includes('newspaper') || q.includes('akhbar') || q.includes('paper') || q.includes('raddi') || q.includes('book') || q.includes('copy')) {
+      return `📰 **Scrap Paper Rates Today (Delhi NCR):**\n\n` +
         `• **Daily Newspapers:** ₹14 - ₹16 / kg\n` +
-        `• **Magazines & School Books:** ₹10 - ₹12 / kg\n` +
+        `• **School Notebooks & Books:** ₹10 - ₹12 / kg\n` +
+        `• **Clean Brown Cardboard Boxes:** ₹10 - ₹12 / kg\n` +
         `• **Mixed Office Paper:** ₹8 - ₹10 / kg\n\n` +
-        `💰 *Calculation:* For 20kg newspapers, you will earn **₹280 - ₹320** with instant UPI payout!`;
+        `💰 *Calculation:* For a typical 20kg monthly newspaper stack, you will earn **₹280 - ₹320** on instant digital UPI payout!`;
     }
 
-    if (q.includes('cardboard') || q.includes('carton') || q.includes('box')) {
+    if (q.includes('cardboard') || q.includes('carton') || q.includes('box') || q.includes('gatta')) {
       return `📦 **Cardboard & Carton Recycling Rates:**\n\n` +
-        `• **Clean Brown E-Commerce Boxes:** ₹10 - ₹12 / kg\n` +
+        `• **Clean Brown E-Commerce Boxes (Amazon/Flipkart):** ₹10 - ₹12 / kg\n` +
         `• **Grey Board Food Packaging:** ₹7 - ₹9 / kg\n\n` +
-        `💡 *Pro-Tip:* Remove packaging tape before selling to avoid weight deductions at the recycler!`;
+        `💡 *Pro-Tip:* Flatten boxes and remove plastic packing tape to avoid scrap deductions at the recycler!`;
     }
 
-    if (q.includes('ewaste') || q.includes('phone') || q.includes('charger') || q.includes('pcb')) {
-      return `💻 **E-Waste Valuation Rates:**\n\n` +
-        `• **Old Motherboards & PCBs:** ₹250 - ₹450 / piece\n` +
-        `• **Copper Cable Scrap:** ₹180 - ₹220 / kg\n` +
-        `• **Old Mobile Phones & Batteries:** ₹40 - ₹90 / unit\n\n` +
-        `🚨 *Important:* Hand over e-waste only to certified recyclers to prevent toxic contamination!`;
+    if (q.includes('ewaste') || q.includes('phone') || q.includes('charger') || q.includes('pcb') || q.includes('laptop') || q.includes('battery')) {
+      return `💻 **E-Waste Valuation Rates (Mayapuri Index):**\n\n` +
+        `• **Motherboards & High-Grade PCBs:** ₹250 - ₹450 / piece\n` +
+        `• **Old Broken Smartphones:** ₹80 - ₹250 / unit\n` +
+        `• **Old Laptops (Complete Unit):** ₹800 - ₹2,200 / unit\n` +
+        `• **Copper Charger Cables:** ₹180 - ₹220 / kg\n` +
+        `• **Lead-Acid Inverter Batteries:** ₹85 - ₹95 / kg\n\n` +
+        `🚨 *Important:* Hand over e-waste strictly to certified recyclers to prevent toxic heavy metal ground contamination!`;
     }
 
-    return `🧴 **Plastic Scrap Rates Today:**\n\n` +
-      `• **PET Water & Soda Bottles:** ₹14 - ₹16 / kg\n` +
+    if (q.includes('glass') || q.includes('bottle') && (q.includes('beer') || q.includes('wine'))) {
+      return `🍾 **Glass Bottle Scrap Rates (Delhi NCR):**\n\n` +
+        `• **Intact Beer & Soda Bottles:** ₹2 - ₹4 / whole bottle\n` +
+        `• **Crushed Clear Glass Cullet:** ₹2.00 - ₹2.50 / kg\n` +
+        `• **Amber / Green Glass:** ₹1.00 - ₹1.50 / kg\n\n` +
+        `💡 *Pro-Tip:* Local scrap collectors pay per intact bottle rather than by weight.`;
+    }
+
+    if (q.includes('compost') || q.includes('khad') || q.includes('organic') || q.includes('peel')) {
+      return `🌱 **Compost & Organic Waste Market Value:**\n\n` +
+        `• **Processed Vermicompost (Black Gold):** ₹12 - ₹18 / kg in NCR retail nurseries.\n` +
+        `• **Citrus Bio-Enzyme Liquid:** ₹80 - ₹120 / litre.\n\n` +
+        `💡 100kg kitchen wet waste converts to ~25kg high-value bio-fertilizer for plants!`;
+    }
+
+    return `🧴 **Plastic Scrap Rates Today (Delhi Mandi):**\n\n` +
+      `• **PET Water & Soda Bottles:** ₹14 - ₹16 / kg *(~20-22 bottles = 1kg)*\n` +
       `• **Hard HDPE Plastic (shampoo, oil cans):** ₹24 - ₹28 / kg\n` +
-      `• **Clean LDPE Milk Pouches:** ₹18 - ₹22 / kg\n\n` +
-      `💡 *Did you know?* Approximately 20-22 PET bottles make 1kg. 50 bottles will earn you ₹35-40 while preventing 1.2kg of methane emissions!`;
+      `• **Clean LDPE Milk Pouches:** ₹18 - ₹22 / kg\n` +
+      `• **PP Plastic Buckets & Chairs:** ₹30 - ₹35 / kg\n\n` +
+      `💡 *Did you know?* 50 crushed PET bottles will earn you ₹35-40 while preventing 1.2kg of methane landfill emissions!`;
   };
+
 
   const handleSendMessage = async (textToSend = null) => {
     const text = textToSend || inputMsg;
